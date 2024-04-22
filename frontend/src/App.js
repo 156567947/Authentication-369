@@ -16,12 +16,15 @@ import NewsletterPage, { action as newsletterAction } from "./pages/Newsletter";
 import Authentication, {
   action as AuthenticationAction,
 } from "./pages/Authentication";
+import {tokenLoader,checkAuthLoader } from './util/auth'
 import { action as logoutAction } from "./pages/Logout";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    loader:tokenLoader,
+    id:'root',
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -52,6 +55,7 @@ const router = createBrowserRouter([
                 path: "edit",
                 element: <EditEventPage />,
                 action: manipulateEventAction,
+                loader:checkAuthLoader
               },
             ],
           },
@@ -60,6 +64,7 @@ const router = createBrowserRouter([
             path: "new",
             element: <NewEventPage />,
             action: manipulateEventAction,
+            loader:checkAuthLoader
           },
         ],
       },
